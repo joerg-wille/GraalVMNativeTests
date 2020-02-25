@@ -31,33 +31,33 @@ mvn archetype:generate\
  ```
 
 &nbsp; 
-##Test Projects
-###HelloWorld
-####Compile Native
+## Test Projects
+### HelloWorld
+#### Compile Native
 
 > cd helloworld  
 > chmod +x mvnw*  
 > ./mvnw clean package -Pgraal
 
-####Run Native
+#### Run Native
 > ./target/classes/helloworld-osx-x86_64
 
 &nbsp; 
-###Swagger-RxJava
-####Compile
+### Swagger-RxJava
+#### Compile
 
 > cd swagger-rxjava  
 > chmod +x mvnw*  
 > ./mvnw clean package
 
-####Run
+#### Run
 > java -jar ./target/swagger-rxjava-1.0.0-SNAPSHOT-jar-with-dependencies.jar
 
-####Run with Tracing Agent
+#### Run with Tracing Agent
 
 `java -agentlib:native-image-agent=config-output-dir=./src/main/resources/META-INF/native-image/net.jbw/swagger-rxjava -jar ./target/swagger-rxjava-1.0.0-SNAPSHOT-jar-with-dependencies.jar`
 
-####Compile Native
+#### Compile Native
 
 > cd swagger-rxjava  
 > chmod +x mvnw*  
