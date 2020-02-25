@@ -31,38 +31,84 @@ mvn archetype:generate\
  ```
 
 &nbsp; 
-##Test Projects
-###HelloWorld
-####Compile Native
+## Test Projects
+### HelloWorld
+#### Compile Native
 
 > cd helloworld  
 > chmod +x mvnw*  
 > ./mvnw clean package -Pgraal
 
-####Run Native
+#### Run Native
 > ./target/classes/helloworld-osx-x86_64
 
-&nbsp; 
-###Swagger-RxJava
-####Compile
+==> WORKS
 
-> cd swagger-rxjava  
+&nbsp; 
+### Swagger-Java8
+#### Generate Swagger Client
+```
+swagger-codegen generate -l java \
+ -c swagger-codegen-config-java8.json \
+ -i src/main/resources/openProject_swagger.yaml \
+ -o target/generated-sources
+```
+`mv ./target/generated-sources/src/main/java/net/jbw/openproject/ ./src/main/java/net/jbw/
+`
+#### Compile
+
+> cd swagger-java8  
 > chmod +x mvnw*  
 > ./mvnw clean package
 
-####Run
-> java -jar ./target/swagger-rxjava-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+#### Run
+> java -jar ./target/swagger-java8-1.0.0-SNAPSHOT-jar-with-dependencies.jar
 
-####Run with Tracing Agent
+#### Run with Tracing Agent
 
-`java -agentlib:native-image-agent=config-output-dir=./src/main/resources/META-INF/native-image/net.jbw/swagger-rxjava -jar ./target/swagger-rxjava-1.0.0-SNAPSHOT-jar-with-dependencies.jar`
+`java -agentlib:native-image-agent=config-output-dir=./src/main/resources/META-INF/native-image/net.jbw/swagger-rxjava -jar ./target/swagger-java8-1.0.0-SNAPSHOT-jar-with-dependencies.jar`
 
-####Compile Native
+#### Compile Native
 
 > cd swagger-rxjava  
 > chmod +x mvnw*  
 > ./mvnw clean package -Pnative
 
+#### Run Native
+> ./target/classes/swagger-java8-osx-x86_64
+
+==> WORKS
+
+&nbsp; 
+### Swagger-RxJava
+#### Generate Swagger Client
+```
+swagger-codegen generate -l java \
+ -c swagger-codegen-config-rxjava.json \
+ -i src/main/resources/openProject_swagger.yaml \
+ -o target/generated-sources
+```
+
+#### Compile
+
+> cd swagger-rxjava  
+> chmod +x mvnw*  
+> ./mvnw clean package
+
+#### Run
+> java -jar ./target/swagger-rxjava-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+
+#### Run with Tracing Agent
+
+`java -agentlib:native-image-agent=config-output-dir=./src/main/resources/META-INF/native-image/net.jbw/swagger-rxjava -jar ./target/swagger-rxjava-1.0.0-SNAPSHOT-jar-with-dependencies.jar`
+
+#### Compile Native
+
+> cd swagger-rxjava  
+> chmod +x mvnw*  
+> ./mvnw clean package -Pnative
+
+==> DOES NOT WORK  
 **Fatal error**: com.oracle.svm.core.util.VMError$HostedError: com.oracle.svm.core.util.UserError$UserException:  
 Static field or an object referenced from a static field changed during native image generation?  
   object:java.lang.ref.SoftReference@19ecfb89  of class: java.lang.ref.SoftReference
@@ -380,5 +426,5 @@ Error: Image build request failed with exit status 1
 
  ```
 
-####Run Native
+#### Run Native
 > ./target/classes/swagger-rxjava-osx-x86_64
