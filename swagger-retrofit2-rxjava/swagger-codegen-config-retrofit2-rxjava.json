@@ -1,7 +1,7 @@
 {
   "groupId":"net.jbw",
   "artifactId":"openproject-api-client",
-  "artifactVersion":"0.2.2-rxjava",
+  "artifactVersion":"0.2.2-retrofit2-rxjava",
   "hideGenerationTimestamp":true,
   "dateLibrary":"java8",
   "developerOrganization":"Jörg Wille",

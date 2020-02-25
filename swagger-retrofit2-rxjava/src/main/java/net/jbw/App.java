@@ -14,7 +14,7 @@ public class App {
 	private static final String USERNAME = "apikey";
 
 	public static void main(String[] args) throws Exception {
-		System.out.println("Hello Swagger-RxJava!");
+		System.out.println("Hello swagger-retrofit2-rxjava!");
 
 		UsersApi usersApi = new ApiClient("basicAuth", USERNAME, APIKEY).createService(UsersApi.class);
 		usersApi.apiV3UsersIdGet("me").subscribe(user -> {
