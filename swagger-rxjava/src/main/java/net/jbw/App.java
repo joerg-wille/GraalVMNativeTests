@@ -18,7 +18,7 @@ public class App {
 
 		UsersApi usersApi = new ApiClient("basicAuth", USERNAME, APIKEY).createService(UsersApi.class);
 		usersApi.apiV3UsersIdGet("me").subscribe(user -> {
-			System.out.println("User: " + user.getLogin());
+			System.out.println("==> User:" + user.getLogin());
 		});
 	}
 }
