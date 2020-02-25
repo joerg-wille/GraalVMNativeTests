@@ -11,7 +11,7 @@ public class App {
 	private static final boolean DEBUG = false;
 	private static final String SERVER_BASE_PATH = "http://localhost";
 
-// branch stable/10.3.1 joerg@kermit
+        // branch stable/10.3.1 joerg@kermit
 	private static final String APIKEY = "3275030fced07dedcf3fb1d609e833d1788d29bbfb167c1a17ec93c5af118cf4";
 
 	// branch release/10.4 joerg@indspdev
@@ -20,7 +20,7 @@ public class App {
 	private static final String USERNAME = "apikey";
 
 	public static void main(String[] args) throws Exception {
-		System.out.println("Hello Swagger-Java8!");
+		System.out.println("Hello swagger-okhttp-gson!");
 
 		ApiClient apiClient = new ApiClient();
 		apiClient.setBasePath(SERVER_BASE_PATH);

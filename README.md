@@ -45,11 +45,11 @@ mvn archetype:generate\
 ==> WORKS
 
 &nbsp; 
-### Swagger-Java8
+### Swagger-okhttp-gson
 #### Generate Swagger Client
 ```
 swagger-codegen generate -l java \
- -c swagger-codegen-config-java8.json \
+ -c swagger-codegen-config-okhttp-gson.json \
  -i src/main/resources/openProject_swagger.yaml \
  -o target/generated-sources
 ```
@@ -57,16 +57,16 @@ swagger-codegen generate -l java \
 `
 #### Compile
 
-> cd swagger-java8  
+> cd swagger-okhttp-gson  
 > chmod +x mvnw*  
 > ./mvnw clean package
 
 #### Run
-> java -jar ./target/swagger-java8-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+> java -jar ./target/swagger-okhttp-gson-1.0.0-SNAPSHOT-jar-with-dependencies.jar
 
 #### Run with Tracing Agent
 
-`java -agentlib:native-image-agent=config-output-dir=./src/main/resources/META-INF/native-image/net.jbw/swagger-rxjava -jar ./target/swagger-java8-1.0.0-SNAPSHOT-jar-with-dependencies.jar`
+`java -agentlib:native-image-agent=config-output-dir=./src/main/resources/META-INF/native-image/net.jbw/swagger-rxjava -jar ./target/swagger-okhttp-gson-1.0.0-SNAPSHOT-jar-with-dependencies.jar`
 
 #### Compile Native
 
@@ -75,7 +75,7 @@ swagger-codegen generate -l java \
 > ./mvnw clean package -Pnative
 
 #### Run Native
-> ./target/classes/swagger-java8-osx-x86_64
+> ./target/classes/swagger-okhttp-gson-osx-x86_64
 
 ==> WORKS
 

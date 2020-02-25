@@ -5,11 +5,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>net.jbw</groupId>
-	<artifactId>swagger-java8</artifactId>
+	<artifactId>swagger-okhttp-gson</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>swagger-java8</name>
+	<name>swagger-okhttp-gson</name>
 	<description>Blank project for GraalVM</description>
 
 	<properties>

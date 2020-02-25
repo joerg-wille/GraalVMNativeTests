@@ -1,7 +1,7 @@
 {
   "groupId":"net.jbw",
   "artifactId":"openproject-api-client",
-  "artifactVersion":"0.2.2-java8",
+  "artifactVersion":"0.2.2-okhttp-gson",
   "hideGenerationTimestamp":true,
   "dateLibrary":"java8",
   "developerOrganization":"Jörg Wille",
