@@ -21,11 +21,11 @@
 		<mainClass>net.jbw.App</mainClass>
 
 		<graal.version>20.0.0</graal.version>
-		<rxjava.version>2.1.1</rxjava.version>
-		<retrofit.version>2.3.0</retrofit.version>
-		<gson-fire.version>1.8.0</gson-fire.version>
+		<rxjava.version>2.2.18</rxjava.version>
+		<retrofit.version>2.7.2</retrofit.version>
+		<gson-fire.version>1.8.3</gson-fire.version>
 		<oltu.version>1.0.2</oltu.version>
-		<swagger-core.version>2.0.0</swagger-core.version>
+		<swagger-core.version>2.1.1</swagger-core.version>
 	</properties>
 
 
