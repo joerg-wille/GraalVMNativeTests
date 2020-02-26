@@ -1,0 +1,14 @@
+{
+  "groupId":"net.jbw",
+  "artifactId":"openproject-api-client",
+  "artifactVersion":"0.2.2-native",
+  "hideGenerationTimestamp":true,
+  "dateLibrary":"java8",
+  "developerOrganization":"Jörg Wille",
+  "developerOrganizationUrl":"joerg.wille@gmail.com",
+  "licenseName":"Apache License 2.0",
+  "licenseUrl":"https://www.apache.org/licenses/LICENSE-2.0",
+  "apiPackage":"net.jbw.openproject.client.api",
+  "modelPackage":"net.jbw.openproject.client.model",
+  "invokerPackage":"net.jbw.openproject.client.invoker"
+}

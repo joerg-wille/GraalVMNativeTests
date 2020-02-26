@@ -1,0 +1,14 @@
+[
+{
+  "name":"net.jbw.openproject.client.model.User",
+  "allDeclaredFields":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"net.jbw.openproject.client.model.User$StatusEnum$Adapter",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.security.ssl.SSLContextImpl"
+}
+]

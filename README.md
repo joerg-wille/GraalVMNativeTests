@@ -1,7 +1,15 @@
 # GraalVMNativeTests
-Some tests with using GraalVM Native-Image to compile Java code to binary. 
+Some tests with using GraalVM Native-Image to compile Java code to binary.  
+(Only tested on macOS 10.14.6)
 
-## Graal Archetype
+Prerequisites:
+Maven    
+GraalVM 20.0.0  
+If you are using [SDKMAN](https://sdkman.io/install), try:
+> sdk install java 20.0.0-grl  
+> sdk use java 20.0.0-grl
+
+## Maven archetype for projects using GraalVM native-image
 Projects are generated with "local" graalvm-blank archetype:  
 
 1. install archetype
@@ -31,10 +39,11 @@ mvn archetype:generate\
  ```
 
 &nbsp; 
-## Test Projects
+## Test projects
+
+&nbsp;
 ### HelloWorld
 #### Compile Native
-
 > cd helloworld  
 > chmod +x mvnw*  
 > ./mvnw clean package -Pgraal
@@ -45,6 +54,18 @@ mvn archetype:generate\
 ==> WORKS
 
 &nbsp; 
+## Test projects using swagger/openapi generated clients
+Additional prerequisites:  
+swagger-codegen  
+openapi-generator
+
+If you are using [Homebrew](https://brew.sh/index), try:  
+`brew install swagger-codegen`  
+`brew install openapi-generator`  
+
+The clients use rest-api to talk to a local instance of [OpenProject](https://docs.openproject.org/installation-and-operations/installation/docker/) running on docker.  
+A [list](https://openapi-generator.tech/docs/generators/java/) of "Config Options" for java openapi-generator (similar to swagger-codegen).
+
 ### Swagger-okhttp-gson
 > cd swagger-okhttp-gson  
 > chmod +x mvnw* 
@@ -72,6 +93,40 @@ swagger-codegen generate -l java \
 
 #### Run Native
 > ./target/classes/swagger-okhttp-gson-osx-x86_64
+
+==> WORKS
+
+
+&nbsp; 
+### Swagger-native (using Java11 native http client)
+> cd swagger-native  
+> chmod +x mvnw* 
+
+#### Generate Swagger Client
+```
+openapi-generator generate \
+ -g java \
+ -c swagger-codegen-config-native.json \
+ -i src/main/resources/openProject_swagger.yaml \
+ -o target/generated-sources \
+ --additional-properties library=native
+```
+`mv ./target/generated-sources/src/main/java/net/jbw/openproject/ ./src/main/java/net/jbw/`
+
+#### Compile
+> ./mvnw clean package
+
+#### Run
+> java -jar ./target/swagger-native-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+
+#### Run with Tracing Agent
+`java -agentlib:native-image-agent=config-output-dir=./src/main/resources/META-INF/native-image/net.jbw/swagger-native -jar ./target/swagger-native-1.0.0-SNAPSHOT-jar-with-dependencies.jar`
+
+#### Compile Native
+> ./mvnw clean package -Pnative
+
+#### Run Native
+> ./target/classes/swagger-native-osx-x86_64
 
 ==> WORKS
 
