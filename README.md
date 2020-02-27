@@ -105,7 +105,7 @@ swagger-codegen generate -l java \
 ```
 openapi-generator generate \
  -g java \
- -c openapi-generator-config.json \
+ -c openapi-generator-config-native.json \
  -i src/main/resources/openProject_swagger.yaml \
  -o target/generated-sources \
  --additional-properties library=native
@@ -146,7 +146,7 @@ openapi-generator generate \
 ```
 java -jar ~/.m2/repository/org/openapitools/openapi-generator-cli/4.3.0-SNAPSHOT/openapi-generator-cli-4.3.0-SNAPSHOT.jar generate \
  -g java \
- -c openapi-generator-config.json \
+ -c openapi-generator-config-native-async.json \
  -i src/main/resources/openProject_swagger.yaml \
  -o target/generated-sources \
  --additional-properties library=native,asyncNative=true
