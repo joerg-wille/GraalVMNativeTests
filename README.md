@@ -96,7 +96,6 @@ swagger-codegen generate -l java \
 
 ==> WORKS
 
-
 &nbsp; 
 ### Swagger-native (using Java11 native http client)
 > cd swagger-native  
@@ -106,7 +105,7 @@ swagger-codegen generate -l java \
 ```
 openapi-generator generate \
  -g java \
- -c swagger-codegen-config-native.json \
+ -c openapi-generator-config.json \
  -i src/main/resources/openProject_swagger.yaml \
  -o target/generated-sources \
  --additional-properties library=native
@@ -127,6 +126,41 @@ openapi-generator generate \
 
 #### Run Native
 > ./target/classes/swagger-native-osx-x86_64
+
+
+&nbsp; 
+### Swagger-native-async (using Java11 native http client with CompletableFuture)
+> cd swagger-native-async  
+> chmod +x mvnw* 
+
+#### Generate Swagger Client using patched version
+[Add async native Java Client](https://github.com/OpenAPITools/openapi-generator/pull/4721)  
+[Patch (mail formatted)](https://github.com/OpenAPITools/openapi-generator/pull/4721.patch)
+
+```
+java -jar /Users/joerg/Downloads/openapi-generator-cli-4.3.0-SNAPSHOT.jar generate \
+ -g java \
+ -c openapi-generator-config.json \
+ -i src/main/resources/openProject_swagger.yaml \
+ -o target/generated-sources \
+ --additional-properties library=native,asyncNative=true
+```
+`mv ./target/generated-sources/src/main/java/net/jbw/openproject/ ./src/main/java/net/jbw/`
+
+#### Compile
+> ./mvnw clean package
+
+#### Run
+> java -jar ./target/swagger-native-async-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+
+#### Run with Tracing Agent
+`java -agentlib:native-image-agent=config-output-dir=./src/main/resources/META-INF/native-image/net.jbw/swagger-native-async -jar ./target/swagger-native-async-1.0.0-SNAPSHOT-jar-with-dependencies.jar`
+
+#### Compile Native
+> ./mvnw clean package -Pnative
+
+#### Run Native
+> ./target/classes/swagger-native-async-osx-x86_64
 
 ==> WORKS
 
