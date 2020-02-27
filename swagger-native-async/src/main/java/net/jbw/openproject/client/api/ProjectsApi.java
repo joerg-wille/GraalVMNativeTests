@@ -101,9 +101,13 @@ public class ProjectsApi {
                   localVarResponse.body())
               );
           } else {
-              return CompletableFuture.completedFuture(
-                      null
-              );
+              try {
+                  return CompletableFuture.completedFuture(
+                      memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<Projects>() {})
+                  );
+              } catch (IOException e) {
+                      return CompletableFuture.failedFuture(new ApiException(e));
+              }
           }
       });
   }
@@ -146,9 +150,13 @@ public class ProjectsApi {
                   localVarResponse.body())
               );
           } else {
-              return CompletableFuture.completedFuture(
-                      null
-              );
+              try {
+                  return CompletableFuture.completedFuture(
+                      memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<Project>() {})
+                  );
+              } catch (IOException e) {
+                      return CompletableFuture.failedFuture(new ApiException(e));
+              }
           }
       });
   }
@@ -190,9 +198,13 @@ public class ProjectsApi {
                   localVarResponse.body())
               );
           } else {
-              return CompletableFuture.completedFuture(
-                      null
-              );
+              try {
+                  return CompletableFuture.completedFuture(
+                      memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<>() {})
+                  );
+              } catch (IOException e) {
+                      return CompletableFuture.failedFuture(new ApiException(e));
+              }
           }
       });
   }

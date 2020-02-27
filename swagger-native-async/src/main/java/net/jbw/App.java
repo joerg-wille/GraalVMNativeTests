@@ -4,7 +4,6 @@ import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 import java.net.http.HttpClient;
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 import net.jbw.openproject.client.api.UsersApi;
 import net.jbw.openproject.client.invoker.ApiClient;
@@ -37,14 +36,9 @@ public class App {
 				})).setReadTimeout(Duration.ofSeconds(10)); // .setBasePath(SERVER_BASE_PATH);
 
 		final UsersApi usersApi = new UsersApi(defaultClient);
-		
-//		CompletableFuture<Void> futureUser
-		
-		User me = usersApi.apiV3UsersIdGet("me").get(10, TimeUnit.SECONDS);
-		
-//		thenAccept(me -> {
-			System.out.println("==> User: " + me.getFirstName() + ", " + me.getLastName() + ", " + me.getLogin());
-//		});
-//		futureUser.get();
+
+		User me = usersApi.apiV3UsersIdGet("me").get();
+		System.out.println("==> User: " + me.getFirstName() + ", " + me.getLastName() + ", " + me.getLogin());
+		System.exit(0);
 	}
 }

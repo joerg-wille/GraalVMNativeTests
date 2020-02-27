@@ -94,9 +94,13 @@ public class RevisionsApi {
                   localVarResponse.body())
               );
           } else {
-              return CompletableFuture.completedFuture(
-                      null
-              );
+              try {
+                  return CompletableFuture.completedFuture(
+                      memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<>() {})
+                  );
+              } catch (IOException e) {
+                      return CompletableFuture.failedFuture(new ApiException(e));
+              }
           }
       });
   }

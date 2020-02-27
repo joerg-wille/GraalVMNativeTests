@@ -97,9 +97,13 @@ public class VersionsApi {
                   localVarResponse.body())
               );
           } else {
-              return CompletableFuture.completedFuture(
-                      null
-              );
+              try {
+                  return CompletableFuture.completedFuture(
+                      memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<Versions>() {})
+                  );
+              } catch (IOException e) {
+                      return CompletableFuture.failedFuture(new ApiException(e));
+              }
           }
       });
   }
@@ -146,9 +150,13 @@ public class VersionsApi {
                   localVarResponse.body())
               );
           } else {
-              return CompletableFuture.completedFuture(
-                      null
-              );
+              try {
+                  return CompletableFuture.completedFuture(
+                      memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<Versions>() {})
+                  );
+              } catch (IOException e) {
+                      return CompletableFuture.failedFuture(new ApiException(e));
+              }
           }
       });
   }
@@ -191,9 +199,13 @@ public class VersionsApi {
                   localVarResponse.body())
               );
           } else {
-              return CompletableFuture.completedFuture(
-                      null
-              );
+              try {
+                  return CompletableFuture.completedFuture(
+                      memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<Version>() {})
+                  );
+              } catch (IOException e) {
+                      return CompletableFuture.failedFuture(new ApiException(e));
+              }
           }
       });
   }

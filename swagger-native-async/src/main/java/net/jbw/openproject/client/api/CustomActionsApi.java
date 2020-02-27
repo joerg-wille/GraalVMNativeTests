@@ -99,9 +99,13 @@ public class CustomActionsApi {
                   localVarResponse.body())
               );
           } else {
-              return CompletableFuture.completedFuture(
-                      null
-              );
+              try {
+                  return CompletableFuture.completedFuture(
+                      memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<>() {})
+                  );
+              } catch (IOException e) {
+                      return CompletableFuture.failedFuture(new ApiException(e));
+              }
           }
       });
     } catch (IOException e) {
@@ -146,9 +150,13 @@ public class CustomActionsApi {
                   localVarResponse.body())
               );
           } else {
-              return CompletableFuture.completedFuture(
-                      null
-              );
+              try {
+                  return CompletableFuture.completedFuture(
+                      memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<>() {})
+                  );
+              } catch (IOException e) {
+                      return CompletableFuture.failedFuture(new ApiException(e));
+              }
           }
       });
   }

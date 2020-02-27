@@ -101,7 +101,7 @@ swagger-codegen generate -l java \
 > cd swagger-native  
 > chmod +x mvnw* 
 
-#### Generate Swagger Client
+#### Generate OpenApi Client
 ```
 openapi-generator generate \
  -g java \
@@ -133,12 +133,18 @@ openapi-generator generate \
 > cd swagger-native-async  
 > chmod +x mvnw* 
 
-#### Generate Swagger Client using patched version
+#### Build and install patched OpenApi Client
 [Add async native Java Client](https://github.com/OpenAPITools/openapi-generator/pull/4721)  
-[Patch (mail formatted)](https://github.com/OpenAPITools/openapi-generator/pull/4721.patch)
+[Patch (mail formatted)](https://github.com/OpenAPITools/openapi-generator/pull/4721.patch)  
+... and some minor modifications.
 
+> git clone https://joerg-wille@github.com/joerg-wille/openapi-generator.git  
+> cd openapi-generator  
+> mvn clean install  
+
+#### Generate OpenApi Client using patched version
 ```
-java -jar /Users/joerg/Downloads/openapi-generator-cli-4.3.0-SNAPSHOT.jar generate \
+java -jar ~/.m2/repository/org/openapitools/openapi-generator-cli/4.3.0-SNAPSHOT/openapi-generator-cli-4.3.0-SNAPSHOT.jar generate \
  -g java \
  -c openapi-generator-config.json \
  -i src/main/resources/openProject_swagger.yaml \
