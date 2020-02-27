@@ -127,6 +127,7 @@ openapi-generator generate \
 #### Run Native
 > ./target/classes/swagger-native-osx-x86_64
 
+==> WORKS
 
 &nbsp; 
 ### Swagger-native-async (using Java11 native http client with CompletableFuture)
@@ -169,6 +170,39 @@ java -jar ~/.m2/repository/org/openapitools/openapi-generator-cli/4.3.0-SNAPSHOT
 > ./target/classes/swagger-native-async-osx-x86_64
 
 ==> WORKS
+
+&nbsp; 
+### Swagger-vertx
+> cd swagger-vertx  
+> chmod +x mvnw* 
+
+#### Generate OpenApi Client
+```
+openapi-generator generate \
+ -g java \
+ -c openapi-generator-config-vertx.json \
+ -i src/main/resources/openProject_swagger.yaml \
+ -o target/generated-sources \
+ --additional-properties library=vertx
+```
+`mv ./target/generated-sources/src/main/java/net/jbw/openproject/ ./src/main/java/net/jbw/`
+
+#### Compile
+> ./mvnw clean package
+
+#### Run
+> java -jar ./target/swagger-vertx-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+
+#### Run with Tracing Agent
+`java -agentlib:native-image-agent=config-output-dir=./src/main/resources/META-INF/native-image/net.jbw/swagger-vertx -jar ./target/swagger-vertx-1.0.0-SNAPSHOT-jar-with-dependencies.jar`
+
+#### Compile Native
+> ./mvnw clean package -Pnative
+
+#### Run Native
+> ./target/classes/swagger-vertx-osx-x86_64
+
+==> WORKS (not yet)
 
 &nbsp; 
 ### Swagger-retrofit2
