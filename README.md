@@ -202,7 +202,7 @@ openapi-generator generate \
 #### Run Native
 > ./target/classes/swagger-vertx-osx-x86_64
 
-==> WORKS (not yet)
+==> WORKS
 
 &nbsp; 
 ### Swagger-retrofit2

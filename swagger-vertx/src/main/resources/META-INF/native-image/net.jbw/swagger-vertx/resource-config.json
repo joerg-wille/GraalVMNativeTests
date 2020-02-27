@@ -1,4 +1,10 @@
 {
-  "resources":[],
+  "resources":[
+    {"pattern":"\\QMETA-INF/services/io.vertx.core.spi.BufferFactory\\E"}, 
+    {"pattern":"\\QMETA-INF/services/io.vertx.core.spi.FutureFactory\\E"}, 
+    {"pattern":"\\QMETA-INF/services/io.vertx.core.spi.PumpFactory\\E"}, 
+    {"pattern":"\\QMETA-INF/services/io.vertx.core.spi.VertxFactory\\E"}, 
+    {"pattern":"\\Qvertx-version.txt\\E"}
+  ],
   "bundles":[]
 }

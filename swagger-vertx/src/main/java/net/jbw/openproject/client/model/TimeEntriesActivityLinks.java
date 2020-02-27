@@ -21,8 +21,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import net.jbw.openproject.client.model.Link;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -39,7 +37,7 @@ public class TimeEntriesActivityLinks {
   private Link self;
 
   public static final String JSON_PROPERTY_PROJECTS = "projects";
-  private List<Link> projects = null;
+  private java.util.List<Link> projects = null;
 
 
   public TimeEntriesActivityLinks self(Link self) {
@@ -67,7 +65,7 @@ public class TimeEntriesActivityLinks {
   }
 
 
-  public TimeEntriesActivityLinks projects(List<Link> projects) {
+  public TimeEntriesActivityLinks projects(java.util.List<Link> projects) {
     
     this.projects = projects;
     return this;
@@ -75,7 +73,7 @@ public class TimeEntriesActivityLinks {
 
   public TimeEntriesActivityLinks addProjectsItem(Link projectsItem) {
     if (this.projects == null) {
-      this.projects = new ArrayList<>();
+      this.projects = new java.util.ArrayList<>();
     }
     this.projects.add(projectsItem);
     return this;
@@ -90,12 +88,12 @@ public class TimeEntriesActivityLinks {
   @JsonProperty(JSON_PROPERTY_PROJECTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<Link> getProjects() {
+  public java.util.List<Link> getProjects() {
     return projects;
   }
 
 
-  public void setProjects(List<Link> projects) {
+  public void setProjects(java.util.List<Link> projects) {
     this.projects = projects;
   }
 

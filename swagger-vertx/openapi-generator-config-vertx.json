@@ -4,6 +4,8 @@
   "artifactVersion":"0.2.2-vertx",
   "hideGenerationTimestamp":true,
   "dateLibrary":"java8",
+  "rxVersion2": true,
+  "fullJavaUtil": true,
   "developerOrganization":"Jörg Wille",
   "developerOrganizationUrl":"joerg.wille@gmail.com",
   "licenseName":"Apache License 2.0",

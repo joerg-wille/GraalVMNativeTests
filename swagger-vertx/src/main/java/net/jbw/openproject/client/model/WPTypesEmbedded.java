@@ -21,8 +21,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import net.jbw.openproject.client.model.WPType;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -35,10 +33,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 public class WPTypesEmbedded {
   public static final String JSON_PROPERTY_ELEMENTS = "elements";
-  private List<WPType> elements = null;
+  private java.util.List<WPType> elements = null;
 
 
-  public WPTypesEmbedded elements(List<WPType> elements) {
+  public WPTypesEmbedded elements(java.util.List<WPType> elements) {
     
     this.elements = elements;
     return this;
@@ -46,7 +44,7 @@ public class WPTypesEmbedded {
 
   public WPTypesEmbedded addElementsItem(WPType elementsItem) {
     if (this.elements == null) {
-      this.elements = new ArrayList<>();
+      this.elements = new java.util.ArrayList<>();
     }
     this.elements.add(elementsItem);
     return this;
@@ -61,12 +59,12 @@ public class WPTypesEmbedded {
   @JsonProperty(JSON_PROPERTY_ELEMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<WPType> getElements() {
+  public java.util.List<WPType> getElements() {
     return elements;
   }
 
 
-  public void setElements(List<WPType> elements) {
+  public void setElements(java.util.List<WPType> elements) {
     this.elements = elements;
   }
 

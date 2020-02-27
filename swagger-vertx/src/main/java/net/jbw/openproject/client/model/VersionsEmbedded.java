@@ -21,8 +21,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import net.jbw.openproject.client.model.Version;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -35,10 +33,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 public class VersionsEmbedded {
   public static final String JSON_PROPERTY_ELEMENTS = "elements";
-  private List<Version> elements = null;
+  private java.util.List<Version> elements = null;
 
 
-  public VersionsEmbedded elements(List<Version> elements) {
+  public VersionsEmbedded elements(java.util.List<Version> elements) {
     
     this.elements = elements;
     return this;
@@ -46,7 +44,7 @@ public class VersionsEmbedded {
 
   public VersionsEmbedded addElementsItem(Version elementsItem) {
     if (this.elements == null) {
-      this.elements = new ArrayList<>();
+      this.elements = new java.util.ArrayList<>();
     }
     this.elements.add(elementsItem);
     return this;
@@ -61,12 +59,12 @@ public class VersionsEmbedded {
   @JsonProperty(JSON_PROPERTY_ELEMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<Version> getElements() {
+  public java.util.List<Version> getElements() {
     return elements;
   }
 
 
-  public void setElements(List<Version> elements) {
+  public void setElements(java.util.List<Version> elements) {
     this.elements = elements;
   }
 

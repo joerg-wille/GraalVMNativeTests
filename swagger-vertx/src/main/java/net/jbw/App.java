@@ -1,14 +1,18 @@
 package net.jbw;
 
-import io.vertx.core.Context;
+import java.util.concurrent.TimeUnit;
+
+import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
+import net.jbw.openproject.client.api.UsersApiImpl;
+import net.jbw.openproject.client.api.rxjava.UsersApi;
 import net.jbw.openproject.client.invoker.ApiClient;
 import net.jbw.openproject.client.invoker.Configuration;
 import net.jbw.openproject.client.invoker.auth.HttpBasicAuth;
-import net.jbw.openproject.client.model.User;
 
-public class App {
+public class App extends AbstractVerticle {
 
 	private static final String SERVER_BASE_PATH = "http://localhost";
 
@@ -20,14 +24,12 @@ public class App {
 
 	private static final String USERNAME = "apikey";
 
-	public static void main(String[] args) throws Exception {
-		System.out.println("Hello swagger-vertx!");
+	@Override
+	public void start(Future<Void> future) {
+		System.out.println("Welcome to Vertx");
 
-		final Vertx vertx = Vertx.vertx();
-//		final Context context = vertx.getOrCreateContext();
 		final JsonObject config = new JsonObject();
 		final ApiClient defaultClient = Configuration.setupDefaultApiClient(vertx, config);
-
 		defaultClient.setBasePath(SERVER_BASE_PATH);
 
 		// Configure HTTP basic authorization: basicAuth
@@ -35,21 +37,32 @@ public class App {
 		basicAuth.setUsername(USERNAME);
 		basicAuth.setPassword(APIKEY);
 
-		final net.jbw.openproject.client.api.UsersApi usersApiDelegate = new net.jbw.openproject.client.api.UsersApiImpl(
-				defaultClient);
-
-		usersApiDelegate.apiV3UsersIdGet("me", result -> {
-
-			final User user = result.result();
+		final UsersApi usersApi = new UsersApi(new UsersApiImpl(defaultClient));
+		usersApi.rxApiV3UsersIdGet("me").subscribe(user -> {
 			System.out.println("==> User:" + user.getLogin());
-
-//			Async async; // = context.async();
-//			context.async.complete();
 		});
 
-//		final UsersApi usersApi = new UsersApi(usersApiDelegate);
-//		usersApi.rxApiV3UsersIdGet("me").subscribe(user -> {
+//		final UsersApi usersApi = new UsersApiImpl(defaultClient);
+//
+//		usersApi.apiV3UsersIdGet("me", result -> {
+//			final User user = result.result();
 //			System.out.println("==> User:" + user.getLogin());
 //		});
 	}
+
+	@Override
+	public void stop() {
+		System.out.println("Shutting down application");
+	}
+
+	public static void main(String[] args) {
+		Vertx vertx = Vertx.vertx();
+		vertx.deployVerticle(new App());
+		try {
+			TimeUnit.SECONDS.sleep(5);
+		} catch (InterruptedException e) {
+		}
+		vertx.close();
+	}
+
 }

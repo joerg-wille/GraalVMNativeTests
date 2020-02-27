@@ -21,8 +21,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import net.jbw.openproject.client.model.WorkPackage;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -35,10 +33,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 public class WorkPackagesEmbedded {
   public static final String JSON_PROPERTY_ELEMENTS = "elements";
-  private List<WorkPackage> elements = null;
+  private java.util.List<WorkPackage> elements = null;
 
 
-  public WorkPackagesEmbedded elements(List<WorkPackage> elements) {
+  public WorkPackagesEmbedded elements(java.util.List<WorkPackage> elements) {
     
     this.elements = elements;
     return this;
@@ -46,7 +44,7 @@ public class WorkPackagesEmbedded {
 
   public WorkPackagesEmbedded addElementsItem(WorkPackage elementsItem) {
     if (this.elements == null) {
-      this.elements = new ArrayList<>();
+      this.elements = new java.util.ArrayList<>();
     }
     this.elements.add(elementsItem);
     return this;
@@ -61,12 +59,12 @@ public class WorkPackagesEmbedded {
   @JsonProperty(JSON_PROPERTY_ELEMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<WorkPackage> getElements() {
+  public java.util.List<WorkPackage> getElements() {
     return elements;
   }
 
 
-  public void setElements(List<WorkPackage> elements) {
+  public void setElements(java.util.List<WorkPackage> elements) {
     this.elements = elements;
   }
 

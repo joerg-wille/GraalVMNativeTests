@@ -21,8 +21,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import net.jbw.openproject.client.model.Link;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -153,7 +151,7 @@ public class WorkPackageLinks {
   private Link timeEntries;
 
   public static final String JSON_PROPERTY_ANCESTORS = "ancestors";
-  private List<Link> ancestors = null;
+  private java.util.List<Link> ancestors = null;
 
   public static final String JSON_PROPERTY_CATEGORY = "category";
   private Link category;
@@ -848,7 +846,7 @@ public class WorkPackageLinks {
   }
 
 
-  public WorkPackageLinks ancestors(List<Link> ancestors) {
+  public WorkPackageLinks ancestors(java.util.List<Link> ancestors) {
     
     this.ancestors = ancestors;
     return this;
@@ -856,7 +854,7 @@ public class WorkPackageLinks {
 
   public WorkPackageLinks addAncestorsItem(Link ancestorsItem) {
     if (this.ancestors == null) {
-      this.ancestors = new ArrayList<>();
+      this.ancestors = new java.util.ArrayList<>();
     }
     this.ancestors.add(ancestorsItem);
     return this;
@@ -871,12 +869,12 @@ public class WorkPackageLinks {
   @JsonProperty(JSON_PROPERTY_ANCESTORS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<Link> getAncestors() {
+  public java.util.List<Link> getAncestors() {
     return ancestors;
   }
 
 
-  public void setAncestors(List<Link> ancestors) {
+  public void setAncestors(java.util.List<Link> ancestors) {
     this.ancestors = ancestors;
   }
 

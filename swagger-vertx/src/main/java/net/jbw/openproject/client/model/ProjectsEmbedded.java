@@ -21,8 +21,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import net.jbw.openproject.client.model.Project;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -35,10 +33,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 public class ProjectsEmbedded {
   public static final String JSON_PROPERTY_ELEMENTS = "elements";
-  private List<Project> elements = null;
+  private java.util.List<Project> elements = null;
 
 
-  public ProjectsEmbedded elements(List<Project> elements) {
+  public ProjectsEmbedded elements(java.util.List<Project> elements) {
     
     this.elements = elements;
     return this;
@@ -46,7 +44,7 @@ public class ProjectsEmbedded {
 
   public ProjectsEmbedded addElementsItem(Project elementsItem) {
     if (this.elements == null) {
-      this.elements = new ArrayList<>();
+      this.elements = new java.util.ArrayList<>();
     }
     this.elements.add(elementsItem);
     return this;
@@ -61,12 +59,12 @@ public class ProjectsEmbedded {
   @JsonProperty(JSON_PROPERTY_ELEMENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<Project> getElements() {
+  public java.util.List<Project> getElements() {
     return elements;
   }
 
 
-  public void setElements(List<Project> elements) {
+  public void setElements(java.util.List<Project> elements) {
     this.elements = elements;
   }
 
