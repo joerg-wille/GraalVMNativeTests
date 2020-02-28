@@ -12,13 +12,23 @@ import net.jbw.openproject.client.model.User;
 
 public class App {
 
-	private static final String SERVER_BASE_PATH = "http://localhost";
+//	private static final String SERVER_SCHEME = "http";
+//	private static final String SERVER_HOST = "localhost";
+//	private static final String SERVER_BASE_PATH = "/";
+//	// branch stable/10.3.1 joerg@kermit
+//	private static final String APIKEY = "3275030fced07dedcf3fb1d609e833d1788d29bbfb167c1a17ec93c5af118cf4";
 
-	// branch stable/10.3.1 joerg@kermit
-	private static final String APIKEY = "3275030fced07dedcf3fb1d609e833d1788d29bbfb167c1a17ec93c5af118cf4";
+	private static final String SERVER_SCHEME = "https";
+	private static final String SERVER_HOST = "joergwille.openproject.com";
+	private static final String SERVER_BASE_PATH = "/";
+	// https://joergwille.openproject.com
+	private static final String APIKEY = "5b8a073a2e97bdd8a54bce05e1cac36cc83d8160706e40929088687c598383cf";
 
-	// branch release/10.4 joerg@indspdev
-//	private static final String APIKEY C="34967d2b46496e94bdb1da235e470c4fb6e2f9f4e7e1ed0e8660dce93239722a";
+//	private static final String SERVER_SCHEME = "https";
+//	private static final String SERVER_HOST = "make.haus";
+//	private static final String SERVER_BASE_PATH = "/";
+//	// branch release/10.4 joerg@indspdev
+//	private static final String APIKEY = "34967d2b46496e94bdb1da235e470c4fb6e2f9f4e7e1ed0e8660dce93239722a";
 
 	private static final String USERNAME = "apikey";
 
@@ -33,7 +43,8 @@ public class App {
 					protected PasswordAuthentication getPasswordAuthentication() {
 						return new PasswordAuthentication(USERNAME, APIKEY.toCharArray());
 					}
-				})).setReadTimeout(Duration.ofSeconds(10)); // .setBasePath(SERVER_BASE_PATH);
+				})).setReadTimeout(Duration.ofSeconds(10)).setScheme(SERVER_SCHEME).setHost(SERVER_HOST)
+				.setBasePath(SERVER_BASE_PATH);
 
 		final UsersApi usersApi = new UsersApi(defaultClient);
 
