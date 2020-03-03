@@ -5,11 +5,20 @@ import java.net.PasswordAuthentication;
 import java.net.http.HttpClient;
 import java.net.http.HttpClient.Redirect;
 import java.time.Duration;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import net.jbw.openproject.client.api.ProjectsApi;
 import net.jbw.openproject.client.api.UsersApi;
+import net.jbw.openproject.client.api.WorkPackagesApi;
 import net.jbw.openproject.client.invoker.ApiClient;
+import net.jbw.openproject.client.invoker.ApiException;
 import net.jbw.openproject.client.invoker.Configuration;
+import net.jbw.openproject.client.model.Project;
 import net.jbw.openproject.client.model.User;
+import net.jbw.openproject.client.model.WorkPackage;
 
 public class App {
 
@@ -34,12 +43,11 @@ public class App {
 	private static final String USERNAME = "apikey";
 
 	public static void main(String[] args) throws Exception {
-		System.out.println("Hello swagger-native-async!");
 		System.out.println("Requires Java 11!");
 		System.out.println("Detected Java Version: " + System.getProperty("java.version"));
 		System.out.println("Server: " + SERVER_SCHEME + "://" + SERVER_HOST + SERVER_BASE_PATH);
 
-		ApiClient defaultClient = Configuration.getDefaultApiClient()
+		ApiClient apiClient = Configuration.getDefaultApiClient()
 				.setHttpClientBuilder(HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1)
 						.followRedirects(Redirect.NORMAL).authenticator(new Authenticator() {
 							@Override
@@ -50,10 +58,44 @@ public class App {
 				.setReadTimeout(Duration.ofSeconds(10)).setScheme(SERVER_SCHEME).setHost(SERVER_HOST)
 				.setBasePath(SERVER_BASE_PATH);
 
-		final UsersApi usersApi = new UsersApi(defaultClient);
+		final UsersApi usersApi = new UsersApi(apiClient);
 
+		System.out.println("Hello swagger-native-async!");
 		User me = usersApi.apiV3UsersIdGet("me").get();
 		System.out.println("==> User: " + me.getFirstName() + ", " + me.getLastName() + ", " + me.getLogin());
-		System.exit(0);
+
+		System.out.println("Hello swagger-native-async wrapped in rxjava!");
+		Observable<User> meObservable = Observable.fromCompletionStage(usersApi.apiV3UsersIdGet("me"));
+		meObservable.subscribeOn(Schedulers.io()).blockingSubscribe(user -> {
+			System.out.println("==> User: " + user.getFirstName() + ", " + user.getLastName() + ", " + user.getLogin());
+		});
+
+		getProjects(apiClient).subscribeOn(Schedulers.io()).subscribe(projects -> {
+			projects.forEach(project -> {
+				System.out.println("==> Project: " + project.getName());
+				getWorkPackages(apiClient, project.getId()).subscribeOn(Schedulers.io()).subscribe(workPackages -> {
+					workPackages.forEach(workPackage -> System.out.println(workPackage.getSubject()));
+				});
+			});
+		});
+
+		try {
+			TimeUnit.SECONDS.sleep(5);
+		} catch (InterruptedException e) {
+		}
+	}
+
+	private static Observable<List<Project>> getProjects(final ApiClient apiClient) {
+		final ProjectsApi projectsApi = new ProjectsApi(apiClient);
+		return Observable.fromCompletionStage(projectsApi.apiV3ProjectsGet(null))
+				.map(projects -> projects.getEmbedded().getElements());
+	}
+
+	private static Observable<List<WorkPackage>> getWorkPackages(final ApiClient apiClient, int projectId) {
+		final WorkPackagesApi workPackagesApi = new WorkPackagesApi(apiClient);
+		return Observable
+				.fromCompletionStage(
+						workPackagesApi.apiV3ProjectsIdWorkPackagesGet(projectId, null, null, null, null, null, null))
+				.map(workPackages -> workPackages.getEmbedded().getElements());
 	}
 }

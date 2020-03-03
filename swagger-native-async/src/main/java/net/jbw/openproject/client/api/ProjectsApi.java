@@ -38,174 +38,176 @@ import java.util.Map;
 
 import java.util.concurrent.CompletableFuture;
 
-
 public class ProjectsApi {
-  private final HttpClient memberVarHttpClient;
-  private final ObjectMapper memberVarObjectMapper;
-  private final String memberVarBaseUri;
-  private final Consumer<HttpRequest.Builder> memberVarInterceptor;
-  private final Duration memberVarReadTimeout;
+	private final HttpClient memberVarHttpClient;
+	private final ObjectMapper memberVarObjectMapper;
+	private final String memberVarBaseUri;
+	private final Consumer<HttpRequest.Builder> memberVarInterceptor;
+	private final Duration memberVarReadTimeout;
 
-  public ProjectsApi() {
-    this(new ApiClient());
-  }
+	public ProjectsApi() {
+		this(new ApiClient());
+	}
 
-  public ProjectsApi(ApiClient apiClient) {
-    memberVarHttpClient = apiClient.getHttpClient();
-    memberVarObjectMapper = apiClient.getObjectMapper();
-    memberVarBaseUri = apiClient.getBaseUri();
-    memberVarInterceptor = apiClient.getRequestInterceptor();
-    memberVarReadTimeout = apiClient.getReadTimeout();
-  }
+	public ProjectsApi(ApiClient apiClient) {
+		memberVarHttpClient = apiClient.getHttpClient();
+		memberVarObjectMapper = apiClient.getObjectMapper();
+		memberVarBaseUri = apiClient.getBaseUri();
+		memberVarInterceptor = apiClient.getRequestInterceptor();
+		memberVarReadTimeout = apiClient.getReadTimeout();
+	}
 
-  /**
-   * List projects
-   * Returns a collection of projects. The collection can be filtered via query parameters similar to how work packages are filtered. In addition to the provided filter, the result set is always limited to only contain projects the client is allowed to see.
-   * @param filters JSON specifying filter conditions. Accepts the same format as returned by the [queries](#queries) endpoint. Currently supported filters are:  + ancestor: filters projects by their ancestor. A project is not considered to be it&#39;s own ancestor. (optional)
-   * @return Projects
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<Projects> apiV3ProjectsGet (String filters) throws ApiException {
+	/**
+	 * List projects Returns a collection of projects. The collection can be
+	 * filtered via query parameters similar to how work packages are filtered. In
+	 * addition to the provided filter, the result set is always limited to only
+	 * contain projects the client is allowed to see.
+	 * 
+	 * @param filters JSON specifying filter conditions. Accepts the same format as
+	 *                returned by the [queries](#queries) endpoint. Currently
+	 *                supported filters are: + ancestor: filters projects by their
+	 *                ancestor. A project is not considered to be it&#39;s own
+	 *                ancestor. (optional)
+	 * @return Projects
+	 * @throws ApiException if fails to make API call
+	 */
+	public CompletableFuture<Projects> apiV3ProjectsGet(String filters) {
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+		HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-    String localVarPath = "/api/v3/projects";
+		String localVarPath = "/api/v3/projects";
 
-    List<Pair> localVarQueryParams = new ArrayList<>();
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("filters", filters));
+		List<Pair> localVarQueryParams = new ArrayList<>();
+		localVarQueryParams.addAll(ApiClient.parameterToPairs("filters", filters));
 
-    if (!localVarQueryParams.isEmpty()) {
-      StringJoiner queryJoiner = new StringJoiner("&");
-      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
-      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
-    } else {
-      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-    }
+		if (!localVarQueryParams.isEmpty()) {
+			StringJoiner queryJoiner = new StringJoiner("&");
+			localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+			localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+		} else {
+			localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+		}
 
-    localVarRequestBuilder.header("Accept", "application/json");
+		localVarRequestBuilder.header("Accept", "application/json");
 
-      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-      if (memberVarReadTimeout != null) {
-        localVarRequestBuilder.timeout(memberVarReadTimeout);
-      }
-      if (memberVarInterceptor != null) {
-        memberVarInterceptor.accept(localVarRequestBuilder);
-      }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "apiV3ProjectsGet call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-              try {
-                  return CompletableFuture.completedFuture(
-                      memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<Projects>() {})
-                  );
-              } catch (IOException e) {
-                      return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
-  }
-  /**
-   * View project
-   * 
-   * @param id Project id (required)
-   * @return Project
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<Project> apiV3ProjectsIdGet (Integer id) throws ApiException {
-    // verify the required parameter 'id' is set
-    if (id == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'id' when calling apiV3ProjectsIdGet"));
-    }
+		localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+		if (memberVarReadTimeout != null) {
+			localVarRequestBuilder.timeout(memberVarReadTimeout);
+		}
+		if (memberVarInterceptor != null) {
+			memberVarInterceptor.accept(localVarRequestBuilder);
+		}
+		return memberVarHttpClient.sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+				.thenComposeAsync(localVarResponse -> {
+					if (localVarResponse.statusCode() / 100 != 2) {
+						return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+								"apiV3ProjectsGet call received non-success response", localVarResponse.headers(),
+								localVarResponse.body()));
+					} else {
+						try {
+							return CompletableFuture.completedFuture(memberVarObjectMapper
+									.readValue(localVarResponse.body(), new TypeReference<Projects>() {
+									}));
+						} catch (IOException e) {
+							return CompletableFuture.failedFuture(new ApiException(e));
+						}
+					}
+				});
+	}
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+	/**
+	 * View project
+	 * 
+	 * @param id Project id (required)
+	 * @return Project
+	 * @throws ApiException if fails to make API call
+	 */
+	public CompletableFuture<Project> apiV3ProjectsIdGet(Integer id) throws ApiException {
+		// verify the required parameter 'id' is set
+		if (id == null) {
+			return CompletableFuture.failedFuture(
+					new ApiException(400, "Missing the required parameter 'id' when calling apiV3ProjectsIdGet"));
+		}
 
-    String localVarPath = "/api/v3/projects/{id}"
-        .replace("{id}", ApiClient.urlEncode(id.toString()));
+		HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+		String localVarPath = "/api/v3/projects/{id}".replace("{id}", ApiClient.urlEncode(id.toString()));
 
-    localVarRequestBuilder.header("Accept", "application/json");
+		localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-      if (memberVarReadTimeout != null) {
-        localVarRequestBuilder.timeout(memberVarReadTimeout);
-      }
-      if (memberVarInterceptor != null) {
-        memberVarInterceptor.accept(localVarRequestBuilder);
-      }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "apiV3ProjectsIdGet call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-              try {
-                  return CompletableFuture.completedFuture(
-                      memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<Project>() {})
-                  );
-              } catch (IOException e) {
-                      return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
-  }
-  /**
-   * List projects with version
-   * This endpoint lists the projects where the given version is available.  The projects returned depend on the sharing settings of the given version, but are also limited to the projects that the current user is allowed to see.
-   * @param id Version id (required)
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<Void> apiV3VersionsIdProjectsGet (Integer id) throws ApiException {
-    // verify the required parameter 'id' is set
-    if (id == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'id' when calling apiV3VersionsIdProjectsGet"));
-    }
+		localVarRequestBuilder.header("Accept", "application/json");
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+		localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+		if (memberVarReadTimeout != null) {
+			localVarRequestBuilder.timeout(memberVarReadTimeout);
+		}
+		if (memberVarInterceptor != null) {
+			memberVarInterceptor.accept(localVarRequestBuilder);
+		}
+		return memberVarHttpClient.sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+				.thenComposeAsync(localVarResponse -> {
+					if (localVarResponse.statusCode() / 100 != 2) {
+						return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+								"apiV3ProjectsIdGet call received non-success response", localVarResponse.headers(),
+								localVarResponse.body()));
+					} else {
+						try {
+							return CompletableFuture.completedFuture(memberVarObjectMapper
+									.readValue(localVarResponse.body(), new TypeReference<Project>() {
+									}));
+						} catch (IOException e) {
+							return CompletableFuture.failedFuture(new ApiException(e));
+						}
+					}
+				});
+	}
 
-    String localVarPath = "/api/v3/versions/{id}/projects"
-        .replace("{id}", ApiClient.urlEncode(id.toString()));
+	/**
+	 * List projects with version This endpoint lists the projects where the given
+	 * version is available. The projects returned depend on the sharing settings of
+	 * the given version, but are also limited to the projects that the current user
+	 * is allowed to see.
+	 * 
+	 * @param id Version id (required)
+	 * @throws ApiException if fails to make API call
+	 */
+	public CompletableFuture<Void> apiV3VersionsIdProjectsGet(Integer id) throws ApiException {
+		// verify the required parameter 'id' is set
+		if (id == null) {
+			return CompletableFuture.failedFuture(new ApiException(400,
+					"Missing the required parameter 'id' when calling apiV3VersionsIdProjectsGet"));
+		}
 
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+		HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-    localVarRequestBuilder.header("Accept", "application/json");
+		String localVarPath = "/api/v3/versions/{id}/projects".replace("{id}", ApiClient.urlEncode(id.toString()));
 
-      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-      if (memberVarReadTimeout != null) {
-        localVarRequestBuilder.timeout(memberVarReadTimeout);
-      }
-      if (memberVarInterceptor != null) {
-        memberVarInterceptor.accept(localVarRequestBuilder);
-      }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "apiV3VersionsIdProjectsGet call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-              try {
-                  return CompletableFuture.completedFuture(
-                      memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<>() {})
-                  );
-              } catch (IOException e) {
-                      return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
-  }
+		localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+		localVarRequestBuilder.header("Accept", "application/json");
+
+		localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+		if (memberVarReadTimeout != null) {
+			localVarRequestBuilder.timeout(memberVarReadTimeout);
+		}
+		if (memberVarInterceptor != null) {
+			memberVarInterceptor.accept(localVarRequestBuilder);
+		}
+		return memberVarHttpClient.sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+				.thenComposeAsync(localVarResponse -> {
+					if (localVarResponse.statusCode() / 100 != 2) {
+						return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+								"apiV3VersionsIdProjectsGet call received non-success response",
+								localVarResponse.headers(), localVarResponse.body()));
+					} else {
+						try {
+							return CompletableFuture.completedFuture(
+									memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<>() {
+									}));
+						} catch (IOException e) {
+							return CompletableFuture.failedFuture(new ApiException(e));
+						}
+					}
+				});
+	}
 }

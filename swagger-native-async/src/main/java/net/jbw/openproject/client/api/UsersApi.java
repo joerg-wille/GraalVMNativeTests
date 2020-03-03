@@ -12,408 +12,407 @@
 
 package net.jbw.openproject.client.api;
 
-import net.jbw.openproject.client.invoker.ApiClient;
-import net.jbw.openproject.client.invoker.ApiException;
-import net.jbw.openproject.client.invoker.Pair;
-
-import net.jbw.openproject.client.model.InlineObject5;
-import net.jbw.openproject.client.model.InlineObject6;
-import net.jbw.openproject.client.model.User;
-import net.jbw.openproject.client.model.Users;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringJoiner;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-import java.util.ArrayList;
-import java.util.StringJoiner;
-import java.util.List;
-import java.util.Map;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.concurrent.CompletableFuture;
-
+import net.jbw.openproject.client.invoker.ApiClient;
+import net.jbw.openproject.client.invoker.ApiException;
+import net.jbw.openproject.client.invoker.Pair;
+import net.jbw.openproject.client.model.InlineObject5;
+import net.jbw.openproject.client.model.InlineObject6;
+import net.jbw.openproject.client.model.User;
+import net.jbw.openproject.client.model.Users;
 
 public class UsersApi {
-  private final HttpClient memberVarHttpClient;
-  private final ObjectMapper memberVarObjectMapper;
-  private final String memberVarBaseUri;
-  private final Consumer<HttpRequest.Builder> memberVarInterceptor;
-  private final Duration memberVarReadTimeout;
+	private final HttpClient memberVarHttpClient;
+	private final ObjectMapper memberVarObjectMapper;
+	private final String memberVarBaseUri;
+	private final Consumer<HttpRequest.Builder> memberVarInterceptor;
+	private final Duration memberVarReadTimeout;
 
-  public UsersApi() {
-    this(new ApiClient());
-  }
+	public UsersApi() {
+		this(new ApiClient());
+	}
 
-  public UsersApi(ApiClient apiClient) {
-    memberVarHttpClient = apiClient.getHttpClient();
-    memberVarObjectMapper = apiClient.getObjectMapper();
-    memberVarBaseUri = apiClient.getBaseUri();
-    memberVarInterceptor = apiClient.getRequestInterceptor();
-    memberVarReadTimeout = apiClient.getReadTimeout();
-  }
+	public UsersApi(ApiClient apiClient) {
+		memberVarHttpClient = apiClient.getHttpClient();
+		memberVarObjectMapper = apiClient.getObjectMapper();
+		memberVarBaseUri = apiClient.getBaseUri();
+		memberVarInterceptor = apiClient.getRequestInterceptor();
+		memberVarReadTimeout = apiClient.getReadTimeout();
+	}
 
-  /**
-   * List Users
-   * Lists users. Only administrators have permission to do this.
-   * @param offset Page number inside the requested collection. (optional, default to 1)
-   * @param pageSize Number of elements to display per page. (optional)
-   * @param filters JSON specifying filter conditions. Accepts the same format as returned by the [queries](#queries) endpoint. Currently supported filters are:  + status: Status the user has  + group: Name of the group in which to-be-listed users are members.  + name: Filter users in whose first or last names, or email addresses the given string occurs.  + login: User&#39;s login (optional)
-   * @param sortBy JSON specifying sort criteria. Accepts the same format as returned by the [queries](#queries) endpoint. (optional)
-   * @return Users
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<Users> apiV3UsersGet (Integer offset, Integer pageSize, String filters, String sortBy) throws ApiException {
+	/**
+	 * List Users Lists users. Only administrators have permission to do this.
+	 * 
+	 * @param offset   Page number inside the requested collection. (optional,
+	 *                 default to 1)
+	 * @param pageSize Number of elements to display per page. (optional)
+	 * @param filters  JSON specifying filter conditions. Accepts the same format as
+	 *                 returned by the [queries](#queries) endpoint. Currently
+	 *                 supported filters are: + status: Status the user has + group:
+	 *                 Name of the group in which to-be-listed users are members. +
+	 *                 name: Filter users in whose first or last names, or email
+	 *                 addresses the given string occurs. + login: User&#39;s login
+	 *                 (optional)
+	 * @param sortBy   JSON specifying sort criteria. Accepts the same format as
+	 *                 returned by the [queries](#queries) endpoint. (optional)
+	 * @return Users
+	 * @throws ApiException if fails to make API call
+	 */
+	public CompletableFuture<Users> apiV3UsersGet(Integer offset, Integer pageSize, String filters, String sortBy)
+			throws ApiException {
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+		HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-    String localVarPath = "/api/v3/users";
+		String localVarPath = "/api/v3/users";
 
-    List<Pair> localVarQueryParams = new ArrayList<>();
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("offset", offset));
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("filters", filters));
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("sortBy", sortBy));
+		List<Pair> localVarQueryParams = new ArrayList<>();
+		localVarQueryParams.addAll(ApiClient.parameterToPairs("offset", offset));
+		localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+		localVarQueryParams.addAll(ApiClient.parameterToPairs("filters", filters));
+		localVarQueryParams.addAll(ApiClient.parameterToPairs("sortBy", sortBy));
 
-    if (!localVarQueryParams.isEmpty()) {
-      StringJoiner queryJoiner = new StringJoiner("&");
-      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
-      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
-    } else {
-      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-    }
+		if (!localVarQueryParams.isEmpty()) {
+			StringJoiner queryJoiner = new StringJoiner("&");
+			localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+			localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+		} else {
+			localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+		}
 
-    localVarRequestBuilder.header("Accept", "application/json");
+		localVarRequestBuilder.header("Accept", "application/json");
 
-      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-      if (memberVarReadTimeout != null) {
-        localVarRequestBuilder.timeout(memberVarReadTimeout);
-      }
-      if (memberVarInterceptor != null) {
-        memberVarInterceptor.accept(localVarRequestBuilder);
-      }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "apiV3UsersGet call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-              try {
-                  return CompletableFuture.completedFuture(
-                      memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<Users>() {})
-                  );
-              } catch (IOException e) {
-                      return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
-  }
-  /**
-   * Delete user
-   * Permanently deletes the specified user account.
-   * @param id User id (required)
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<Void> apiV3UsersIdDelete (Integer id) throws ApiException {
-    // verify the required parameter 'id' is set
-    if (id == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'id' when calling apiV3UsersIdDelete"));
-    }
+		localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+		if (memberVarReadTimeout != null) {
+			localVarRequestBuilder.timeout(memberVarReadTimeout);
+		}
+		if (memberVarInterceptor != null) {
+			memberVarInterceptor.accept(localVarRequestBuilder);
+		}
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+		return memberVarHttpClient.sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+				.thenComposeAsync(localVarResponse -> {
+					if (localVarResponse.statusCode() / 100 != 2) {
+						return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+								"apiV3UsersGet call received non-success response", localVarResponse.headers(),
+								localVarResponse.body()));
+					} else {
+						try {
+							return CompletableFuture.completedFuture(memberVarObjectMapper
+									.readValue(localVarResponse.body(), new TypeReference<Users>() {
+									}));
+						} catch (IOException e) {
+							return CompletableFuture.failedFuture(new ApiException(e));
+						}
+					}
+				});
+	}
 
-    String localVarPath = "/api/v3/users/{id}"
-        .replace("{id}", ApiClient.urlEncode(id.toString()));
+	/**
+	 * Delete user Permanently deletes the specified user account.
+	 * 
+	 * @param id User id (required)
+	 * @throws ApiException if fails to make API call
+	 */
+	public CompletableFuture<Void> apiV3UsersIdDelete(Integer id) throws ApiException {
+		// verify the required parameter 'id' is set
+		if (id == null) {
+			return CompletableFuture.failedFuture(
+					new ApiException(400, "Missing the required parameter 'id' when calling apiV3UsersIdDelete"));
+		}
 
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+		HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-    localVarRequestBuilder.header("Accept", "application/json");
+		String localVarPath = "/api/v3/users/{id}".replace("{id}", ApiClient.urlEncode(id.toString()));
 
-      localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
-      if (memberVarReadTimeout != null) {
-        localVarRequestBuilder.timeout(memberVarReadTimeout);
-      }
-      if (memberVarInterceptor != null) {
-        memberVarInterceptor.accept(localVarRequestBuilder);
-      }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "apiV3UsersIdDelete call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-              try {
-                  return CompletableFuture.completedFuture(
-                      memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<>() {})
-                  );
-              } catch (IOException e) {
-                      return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
-  }
-  /**
-   * View user
-   * 
-   * @param id User id. Use &#x60;me&#x60; to reference current user, if any. (required)
-   * @return User
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<User> apiV3UsersIdGet (String id) throws ApiException {
-    // verify the required parameter 'id' is set
-    if (id == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'id' when calling apiV3UsersIdGet"));
-    }
+		localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+		localVarRequestBuilder.header("Accept", "application/json");
 
-    String localVarPath = "/api/v3/users/{id}"
-        .replace("{id}", ApiClient.urlEncode(id.toString()));
+		localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+		if (memberVarReadTimeout != null) {
+			localVarRequestBuilder.timeout(memberVarReadTimeout);
+		}
+		if (memberVarInterceptor != null) {
+			memberVarInterceptor.accept(localVarRequestBuilder);
+		}
+		return memberVarHttpClient.sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+				.thenComposeAsync(localVarResponse -> {
+					if (localVarResponse.statusCode() / 100 != 2) {
+						return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+								"apiV3UsersIdDelete call received non-success response", localVarResponse.headers(),
+								localVarResponse.body()));
+					} else {
+						try {
+							return CompletableFuture.completedFuture(
+									memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<>() {
+									}));
+						} catch (IOException e) {
+							return CompletableFuture.failedFuture(new ApiException(e));
+						}
+					}
+				});
+	}
 
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+	/**
+	 * View user
+	 * 
+	 * @param id User id. Use &#x60;me&#x60; to reference current user, if any.
+	 *           (required)
+	 * @return User
+	 * @throws ApiException if fails to make API call
+	 */
+	public CompletableFuture<User> apiV3UsersIdGet(String id) throws ApiException {
+		// verify the required parameter 'id' is set
+		if (id == null) {
+			return CompletableFuture.failedFuture(
+					new ApiException(400, "Missing the required parameter 'id' when calling apiV3UsersIdGet"));
+		}
 
-    localVarRequestBuilder.header("Accept", "application/json");
+		HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-      localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-      if (memberVarReadTimeout != null) {
-        localVarRequestBuilder.timeout(memberVarReadTimeout);
-      }
-      if (memberVarInterceptor != null) {
-        memberVarInterceptor.accept(localVarRequestBuilder);
-      }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "apiV3UsersIdGet call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-              try {
-                  return CompletableFuture.completedFuture(
-                      memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<User>() {})
-                  );
-              } catch (IOException e) {
-                      return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
-  }
-  /**
-   * Remove Lock
-   * 
-   * @param id User id (required)
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<Void> apiV3UsersIdLockDelete (Integer id) throws ApiException {
-    // verify the required parameter 'id' is set
-    if (id == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'id' when calling apiV3UsersIdLockDelete"));
-    }
+		String localVarPath = "/api/v3/users/{id}".replace("{id}", ApiClient.urlEncode(id.toString()));
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+		localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-    String localVarPath = "/api/v3/users/{id}/lock"
-        .replace("{id}", ApiClient.urlEncode(id.toString()));
+		localVarRequestBuilder.header("Accept", "application/json");
 
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+		localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+		if (memberVarReadTimeout != null) {
+			localVarRequestBuilder.timeout(memberVarReadTimeout);
+		}
+		if (memberVarInterceptor != null) {
+			memberVarInterceptor.accept(localVarRequestBuilder);
+		}
 
-    localVarRequestBuilder.header("Accept", "application/json");
+		return memberVarHttpClient.sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+				.thenComposeAsync(localVarResponse -> {
+					if (localVarResponse.statusCode() / 100 != 2) {
+						return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+								"apiV3UsersIdGet call received non-success response", localVarResponse.headers(),
+								localVarResponse.body()));
+					} else {
+						try {
+							return CompletableFuture.completedFuture(
+									memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<User>() {
+									}));
+						} catch (IOException e) {
+							return CompletableFuture.failedFuture(new ApiException(e));
+						}
+					}
+				});
+	}
 
-      localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
-      if (memberVarReadTimeout != null) {
-        localVarRequestBuilder.timeout(memberVarReadTimeout);
-      }
-      if (memberVarInterceptor != null) {
-        memberVarInterceptor.accept(localVarRequestBuilder);
-      }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "apiV3UsersIdLockDelete call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-              try {
-                  return CompletableFuture.completedFuture(
-                      memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<>() {})
-                  );
-              } catch (IOException e) {
-                      return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
-  }
-  /**
-   * Set Lock
-   * 
-   * @param id User id (required)
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<Void> apiV3UsersIdLockPost (Integer id) throws ApiException {
-    // verify the required parameter 'id' is set
-    if (id == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'id' when calling apiV3UsersIdLockPost"));
-    }
+	/**
+	 * Remove Lock
+	 * 
+	 * @param id User id (required)
+	 * @throws ApiException if fails to make API call
+	 */
+	public CompletableFuture<Void> apiV3UsersIdLockDelete(Integer id) throws ApiException {
+		// verify the required parameter 'id' is set
+		if (id == null) {
+			return CompletableFuture.failedFuture(
+					new ApiException(400, "Missing the required parameter 'id' when calling apiV3UsersIdLockDelete"));
+		}
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+		HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-    String localVarPath = "/api/v3/users/{id}/lock"
-        .replace("{id}", ApiClient.urlEncode(id.toString()));
+		String localVarPath = "/api/v3/users/{id}/lock".replace("{id}", ApiClient.urlEncode(id.toString()));
 
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+		localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-    localVarRequestBuilder.header("Accept", "application/json");
+		localVarRequestBuilder.header("Accept", "application/json");
 
-      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
-      if (memberVarReadTimeout != null) {
-        localVarRequestBuilder.timeout(memberVarReadTimeout);
-      }
-      if (memberVarInterceptor != null) {
-        memberVarInterceptor.accept(localVarRequestBuilder);
-      }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "apiV3UsersIdLockPost call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-              try {
-                  return CompletableFuture.completedFuture(
-                      memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<>() {})
-                  );
-              } catch (IOException e) {
-                      return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
-  }
-  /**
-   * Update user
-   * Updates the user&#39;s writable attributes. When calling this endpoint the client provides a single object, containing at least the properties and links that are required, in the body.
-   * @param id User id (required)
-   * @param body  (optional)
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<Void> apiV3UsersIdPatch (Integer id, InlineObject5 body) throws ApiException {
-    // verify the required parameter 'id' is set
-    if (id == null) {
-        return CompletableFuture.failedFuture(new ApiException(400, "Missing the required parameter 'id' when calling apiV3UsersIdPatch"));
-    }
+		localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+		if (memberVarReadTimeout != null) {
+			localVarRequestBuilder.timeout(memberVarReadTimeout);
+		}
+		if (memberVarInterceptor != null) {
+			memberVarInterceptor.accept(localVarRequestBuilder);
+		}
+		return memberVarHttpClient.sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+				.thenComposeAsync(localVarResponse -> {
+					if (localVarResponse.statusCode() / 100 != 2) {
+						return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+								"apiV3UsersIdLockDelete call received non-success response", localVarResponse.headers(),
+								localVarResponse.body()));
+					} else {
+						try {
+							return CompletableFuture.completedFuture(
+									memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<>() {
+									}));
+						} catch (IOException e) {
+							return CompletableFuture.failedFuture(new ApiException(e));
+						}
+					}
+				});
+	}
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+	/**
+	 * Set Lock
+	 * 
+	 * @param id User id (required)
+	 * @throws ApiException if fails to make API call
+	 */
+	public CompletableFuture<Void> apiV3UsersIdLockPost(Integer id) throws ApiException {
+		// verify the required parameter 'id' is set
+		if (id == null) {
+			return CompletableFuture.failedFuture(
+					new ApiException(400, "Missing the required parameter 'id' when calling apiV3UsersIdLockPost"));
+		}
 
-    String localVarPath = "/api/v3/users/{id}"
-        .replace("{id}", ApiClient.urlEncode(id.toString()));
+		HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+		String localVarPath = "/api/v3/users/{id}/lock".replace("{id}", ApiClient.urlEncode(id.toString()));
 
-    localVarRequestBuilder.header("Content-Type", "application/json");
-    localVarRequestBuilder.header("Accept", "application/json");
+		localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-    try {
-      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(body);
-      localVarRequestBuilder.method("PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-      if (memberVarReadTimeout != null) {
-        localVarRequestBuilder.timeout(memberVarReadTimeout);
-      }
-      if (memberVarInterceptor != null) {
-        memberVarInterceptor.accept(localVarRequestBuilder);
-      }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "apiV3UsersIdPatch call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-              try {
-                  return CompletableFuture.completedFuture(
-                      memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<>() {})
-                  );
-              } catch (IOException e) {
-                      return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
-    } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
-    }
-  }
-  /**
-   * Create User
-   * Creates a new user. Only administrators have permission to do so. When calling this endpoint the client provides a single object, containing at least the properties and links that are required, in the body.  Valid values for &#x60;status&#x60;:  1) \&quot;active\&quot; - In this case a password has to be provided in addition to the other attributes. 2) \&quot;invited\&quot; - In this case nothing but the email address is required. The rest is optional. An invitation will be sent to the user.
-   * @param body  (optional)
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<Void> apiV3UsersPost (InlineObject6 body) throws ApiException {
+		localVarRequestBuilder.header("Accept", "application/json");
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+		localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+		if (memberVarReadTimeout != null) {
+			localVarRequestBuilder.timeout(memberVarReadTimeout);
+		}
+		if (memberVarInterceptor != null) {
+			memberVarInterceptor.accept(localVarRequestBuilder);
+		}
+		return memberVarHttpClient.sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+				.thenComposeAsync(localVarResponse -> {
+					if (localVarResponse.statusCode() / 100 != 2) {
+						return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+								"apiV3UsersIdLockPost call received non-success response", localVarResponse.headers(),
+								localVarResponse.body()));
+					} else {
+						try {
+							return CompletableFuture.completedFuture(
+									memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<>() {
+									}));
+						} catch (IOException e) {
+							return CompletableFuture.failedFuture(new ApiException(e));
+						}
+					}
+				});
+	}
 
-    String localVarPath = "/api/v3/users";
+	/**
+	 * Update user Updates the user&#39;s writable attributes. When calling this
+	 * endpoint the client provides a single object, containing at least the
+	 * properties and links that are required, in the body.
+	 * 
+	 * @param id   User id (required)
+	 * @param body (optional)
+	 * @throws ApiException if fails to make API call
+	 */
+	public CompletableFuture<Void> apiV3UsersIdPatch(Integer id, InlineObject5 body) throws ApiException {
+		// verify the required parameter 'id' is set
+		if (id == null) {
+			return CompletableFuture.failedFuture(
+					new ApiException(400, "Missing the required parameter 'id' when calling apiV3UsersIdPatch"));
+		}
 
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+		HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-    localVarRequestBuilder.header("Content-Type", "application/json");
-    localVarRequestBuilder.header("Accept", "application/json");
+		String localVarPath = "/api/v3/users/{id}".replace("{id}", ApiClient.urlEncode(id.toString()));
 
-    try {
-      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(body);
-      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-      if (memberVarReadTimeout != null) {
-        localVarRequestBuilder.timeout(memberVarReadTimeout);
-      }
-      if (memberVarInterceptor != null) {
-        memberVarInterceptor.accept(localVarRequestBuilder);
-      }
-      return memberVarHttpClient.sendAsync(
-              localVarRequestBuilder.build(),
-              HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-          if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
-                  "apiV3UsersPost call received non-success response",
-                  localVarResponse.headers(),
-                  localVarResponse.body())
-              );
-          } else {
-              try {
-                  return CompletableFuture.completedFuture(
-                      memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<>() {})
-                  );
-              } catch (IOException e) {
-                      return CompletableFuture.failedFuture(new ApiException(e));
-              }
-          }
-      });
-    } catch (IOException e) {
-      return CompletableFuture.failedFuture(new ApiException(e));
-    }
-  }
+		localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+		localVarRequestBuilder.header("Content-Type", "application/json");
+		localVarRequestBuilder.header("Accept", "application/json");
+
+		try {
+			byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(body);
+			localVarRequestBuilder.method("PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+			if (memberVarReadTimeout != null) {
+				localVarRequestBuilder.timeout(memberVarReadTimeout);
+			}
+			if (memberVarInterceptor != null) {
+				memberVarInterceptor.accept(localVarRequestBuilder);
+			}
+			return memberVarHttpClient.sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+					.thenComposeAsync(localVarResponse -> {
+						if (localVarResponse.statusCode() / 100 != 2) {
+							return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+									"apiV3UsersIdPatch call received non-success response", localVarResponse.headers(),
+									localVarResponse.body()));
+						} else {
+							try {
+								return CompletableFuture.completedFuture(
+										memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<>() {
+										}));
+							} catch (IOException e) {
+								return CompletableFuture.failedFuture(new ApiException(e));
+							}
+						}
+					});
+		} catch (IOException e) {
+			return CompletableFuture.failedFuture(new ApiException(e));
+		}
+	}
+
+	/**
+	 * Create User Creates a new user. Only administrators have permission to do so.
+	 * When calling this endpoint the client provides a single object, containing at
+	 * least the properties and links that are required, in the body. Valid values
+	 * for &#x60;status&#x60;: 1) \&quot;active\&quot; - In this case a password has
+	 * to be provided in addition to the other attributes. 2) \&quot;invited\&quot;
+	 * - In this case nothing but the email address is required. The rest is
+	 * optional. An invitation will be sent to the user.
+	 * 
+	 * @param body (optional)
+	 * @throws ApiException if fails to make API call
+	 */
+	public CompletableFuture<Void> apiV3UsersPost(InlineObject6 body) throws ApiException {
+
+		HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+		String localVarPath = "/api/v3/users";
+
+		localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+		localVarRequestBuilder.header("Content-Type", "application/json");
+		localVarRequestBuilder.header("Accept", "application/json");
+
+		try {
+			byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(body);
+			localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+			if (memberVarReadTimeout != null) {
+				localVarRequestBuilder.timeout(memberVarReadTimeout);
+			}
+			if (memberVarInterceptor != null) {
+				memberVarInterceptor.accept(localVarRequestBuilder);
+			}
+			return memberVarHttpClient.sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+					.thenComposeAsync(localVarResponse -> {
+						if (localVarResponse.statusCode() / 100 != 2) {
+							return CompletableFuture.failedFuture(new ApiException(localVarResponse.statusCode(),
+									"apiV3UsersPost call received non-success response", localVarResponse.headers(),
+									localVarResponse.body()));
+						} else {
+							try {
+								return CompletableFuture.completedFuture(
+										memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<>() {
+										}));
+							} catch (IOException e) {
+								return CompletableFuture.failedFuture(new ApiException(e));
+							}
+						}
+					});
+		} catch (IOException e) {
+			return CompletableFuture.failedFuture(new ApiException(e));
+		}
+	}
 }
