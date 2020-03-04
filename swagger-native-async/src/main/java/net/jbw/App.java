@@ -14,7 +14,6 @@ import net.jbw.openproject.client.api.ProjectsApi;
 import net.jbw.openproject.client.api.UsersApi;
 import net.jbw.openproject.client.api.WorkPackagesApi;
 import net.jbw.openproject.client.invoker.ApiClient;
-import net.jbw.openproject.client.invoker.ApiException;
 import net.jbw.openproject.client.invoker.Configuration;
 import net.jbw.openproject.client.model.Project;
 import net.jbw.openproject.client.model.User;

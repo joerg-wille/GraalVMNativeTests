@@ -148,7 +148,7 @@ openapi-generator generate \
 java -jar ~/.m2/repository/org/openapitools/openapi-generator-cli/4.3.0-SNAPSHOT/openapi-generator-cli-4.3.0-SNAPSHOT.jar generate \
  -g java \
  -c openapi-generator-config-native-async.json \
- -i src/main/resources/openProject_swagger.yaml \
+ -i src/main/resources/openProject_swagger_openapi.yaml \
  -o target/generated-sources \
  --additional-properties library=native,asyncNative=true
 ```
