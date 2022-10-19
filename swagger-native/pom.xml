@@ -23,7 +23,7 @@
 		<graal.version>20.0.0</graal.version>
 		<swagger-core.version>2.1.1</swagger-core.version>
 		<swagger-annotations.version>1.5.22</swagger-annotations.version>
-		<jackson.version>2.9.9</jackson.version>
+		<jackson.version>2.13.4.1</jackson.version>
 		<jackson-databind-nullable.version>0.2.1</jackson-databind-nullable.version>
 		<google-findbugs.version>3.0.2</google-findbugs.version>
 	</properties>
